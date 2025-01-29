@@ -1,0 +1,25 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ion-card {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px;
+}
+
+ion-button {
+    margin-top: 10px;
+    flex: 2;
+    width: 100%;
+}

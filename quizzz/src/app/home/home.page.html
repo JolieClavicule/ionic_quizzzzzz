@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <h1>Hello! Welcome to my Quizz App!</h1>
+    <div>
+      <ion-button routerLink="/create" expand="block" shape="round" color="primary">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>Create Quizz
+      </ion-button>
+      <ion-button routerLink="/modify" expand="block" shape="round" color="secondary">
+        <ion-icon slot="start" name="pencil-outline"></ion-icon>Modify Quizz
+      </ion-button>
+    </div>
+    @if (quizList.length > 0) {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Available quizzes :</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let quiz of quizList">
+              <ion-label>{{quiz.title}}</ion-label>
+              <ion-button routerLink="/quiz/{{quiz.id}}" slot="end" color="primary" shape="round">
+                <ion-icon slot="start" name="play"></ion-icon>Start
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    } @else {
+      <ion-card>
+        <ion-card-content>
+          No quizzes available
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
+</ion-content>

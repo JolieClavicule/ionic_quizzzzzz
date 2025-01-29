@@ -1,0 +1,45 @@
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <h1>Create New Quiz</h1>
+    <form [formGroup]="quizForm">
+      <ion-item>
+        <ion-label position="floating">Title of the quizz</ion-label>
+        <ion-input formControlName="quizTitle" required></ion-input>
+      </ion-item>
+      
+      <!-- Questions Array -->
+      <div formArrayName="questions">
+        <ion-card *ngFor="let question of questions.controls; let i=index" [formGroupName]="i">
+          <ion-card-header>
+            <ion-item>
+              <ion-label position="floating">Question n°{{i + 1}}</ion-label>
+              <ion-input formControlName="questionText" required></ion-input>
+            </ion-item>
+          </ion-card-header>
+          
+          <div>
+            <h2>Possible Answers</h2>
+            <ion-radio-group formControlName="correctAnswer">
+              <ion-item *ngFor="let _ of [1,2,3,4]; let j=index">
+                <ion-radio slot="start" [value]="j + 1" required></ion-radio>
+                <ion-input [formControlName]="'answer' + (j + 1)" [placeholder]="'Possible Answer ' + (j + 1)" required></ion-input>
+              </ion-item>
+            </ion-radio-group>
+          </div>
+          <ion-button color="danger" (click)="removeQuestion(i)">Remove Question</ion-button>
+        </ion-card>
+      </div>
+
+      <!-- Add Question Button -->
+      <ion-button expand="block" (click)="addQuestion()">
+        <ion-icon name="add"></ion-icon>
+        Add Question
+      </ion-button>
+      
+      <!-- Save Quiz Button -->
+      <ion-button expand="block" color="success" (click)="saveQuiz()" [disabled]="!quizForm.valid">
+        Save Quiz
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
