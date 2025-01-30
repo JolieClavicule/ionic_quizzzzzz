@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'modify',
     loadChildren: () => import('./pages/modify/modify.module').then( m => m.ModifyPageModule)
   },
+  {
+    path: 'quizz/:id',
+    loadChildren: () => import('./pages/detail/detail.module').then( m => m.DetailPageModule)
+  },
 ];
 
 @NgModule({

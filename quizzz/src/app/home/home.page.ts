@@ -16,6 +16,12 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.quizService.getQuizzes().subscribe(quizzes => {
       this.quizList = quizzes as Quiz[];
+      console.log(this.quizList);
     });
   }
+
+  async removeQuiz(id: string) {
+    await this.quizService.deleteQuiz(id);
+    this.quizList = this.quizList.filter(quiz => quiz.id !== id);
+}
 }

@@ -6,6 +6,8 @@ import {
   deleteDoc, 
   doc,
   getDocs,
+  getDoc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { Quiz } from './quizz.model';
 import { from, map, Observable } from 'rxjs';
@@ -22,13 +24,41 @@ export class QuizzService {
     );
   }
 
-  addQuiz(quiz: Quiz) {
-    const quizzesRef = collection(this.firestore, 'quizzes');
-    return addDoc(quizzesRef, quiz);
+    async addQuiz(quiz: Quiz) {
+      const quizzesRef = collection(this.firestore, 'quizzes');
+  const docRef = await addDoc(quizzesRef, quiz);
+  await updateDoc(docRef, { id: docRef.id });
+  return docRef;
+    }
+
+  async deleteQuiz(id: string) {
+    try {
+      const quizDocRef = doc(this.firestore, 'quizzes', id);
+      await deleteDoc(quizDocRef);
+      console.log('Quiz successfully deleted');
+    } catch (error) {
+      console.error('Error deleting quiz:', error);
+      throw error;
+    }
   }
 
-  deleteQuiz(id: string) {
-    const quizDocRef = doc(this.firestore, `quizzes/${id}`);
-    return deleteDoc(quizDocRef);
+  getQuizzById(id: string): Observable<Quiz | null> {
+    try {
+      const quizDocRef = doc(this.firestore, 'quizzes', id);
+      return from(getDoc(quizDocRef)).pipe(
+        map(docSnap => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            return { id: docSnap.id, ...data } as Quiz;
+          } else {
+            console.log('No quiz found with ID:', id);
+            return null;
+          }
+        })
+      );
+    } catch (error) {
+      console.error('Error getting quiz:', error);
+      throw error;
+    }
   }
 }

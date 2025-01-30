@@ -18,7 +18,10 @@
           <ion-list>
             <ion-item *ngFor="let quiz of quizList">
               <ion-label>{{quiz.title}}</ion-label>
-              <ion-button routerLink="/quiz/{{quiz.id}}" slot="end" color="primary" shape="round">
+              <ion-button shape="round" color="danger" (click)="removeQuiz(quiz.id)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+              <ion-button [routerLink]="['/quizz', quiz.id]" slot="end" color="primary" shape="round">
                 <ion-icon slot="start" name="play"></ion-icon>Start
               </ion-button>
             </ion-item>
