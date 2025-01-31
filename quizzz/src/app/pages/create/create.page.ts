@@ -67,6 +67,7 @@ export class CreatePage implements OnInit {
         await this.quizService.addQuiz(quiz);
         console.log('Quiz saved successfully!');
         this.quizForm.reset();
+        this.home();;
       } catch (error) {
         console.error('Error saving quiz:', error);
       }

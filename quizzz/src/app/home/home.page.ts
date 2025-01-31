@@ -14,10 +14,18 @@ export class HomePage implements OnInit {
   constructor(private quizService: QuizzService) {}
 
   ngOnInit() {
+    this.loadQuizzes();
+  }
+
+  loadQuizzes() {
     this.quizService.getQuizzes().subscribe(quizzes => {
       this.quizList = quizzes as Quiz[];
       console.log(this.quizList);
     });
+  }
+
+  ionViewWillEnter() {
+    this.loadQuizzes();
   }
 
   async removeQuiz(id: string) {
