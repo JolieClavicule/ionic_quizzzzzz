@@ -1,10 +1,75 @@
-<ion-content *ngIf="quiz">
+<ion-content *ngIf="quiz && currentQuestion">
+  <ion-progress-bar 
+    [value]="(currentQuestionIndex + 1) / quiz.questions.length"
+    color="primary">
+  </ion-progress-bar>
+  <h1>{{ quiz.title }}</h1>
+
+  <div>
+    Question {{ currentQuestionIndex + 1 }} of {{ quiz.questions.length }}
+  </div>
+
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{ quiz.title }}</ion-card-title>
+      <ion-card-title>{{ currentQuestion.questionText }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item 
+          *ngFor="let answer of [
+            currentQuestion.answer1, 
+            currentQuestion.answer2, 
+            currentQuestion.answer3, 
+            currentQuestion.answer4
+          ]; let i = index"
+          [disabled]="quizCompleted"
+          (click)="selectAnswer(i)"
+          lines="full"
+          button>
+          <ion-label>{{ answer }}</ion-label>
+          <ion-icon 
+            *ngIf="isAnswerSelected(i)"
+            name="checkmark-circle" 
+            slot="end">
+          </ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <div>
+    <ion-button 
+      [disabled]="isFirstQuestion"
+      (click)="previousQuestion()">
+      <ion-icon slot="start" name="arrow-back"></ion-icon>
+      Previous
+    </ion-button>
+
+    <ion-button 
+      *ngIf="!isLastQuestion"
+      [disabled]="userAnswers[currentQuestionIndex] === -1"
+      (click)="nextQuestion()">
+      Next
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-button>
+
+    <ion-button 
+      *ngIf="isLastQuestion && !quizCompleted"
+      [disabled]="userAnswers.includes(-1)"
+      (click)="submitQuiz()"
+      color="success">
+      Submit Quiz
+    </ion-button>
+  </div>
+
+  <ion-card *ngIf="quizCompleted">
+    <ion-card-header>
+      <ion-card-title>Quiz Results</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>{{ quiz.questions }}</p>
+      <h2>Your Score: {{ score.toFixed(0) }}%</h2>
     </ion-card-content>
+    <ion-button (click)="downloadResults()">Download Results</ion-button>
   </ion-card>
 </ion-content>
