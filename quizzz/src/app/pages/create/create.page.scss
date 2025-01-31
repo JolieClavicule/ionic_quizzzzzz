@@ -3,7 +3,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    width: 100%;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+#header ion-button {
+    position: absolute;
+    left: 0;
+    margin: 10px;
 }
 
 h2 {
@@ -11,15 +25,18 @@ h2 {
     margin-left: auto;
     margin-right: auto;
 }
-
-ion-card {
-    width: 100%;
-    max-width: 500px;
+form {
+    width: 75%;
     margin: 10px;
 }
 
+ion-card {
+    margin: 10px;
+    padding: 10px;
+}
+
 ion-button {
-    margin-top: 10px;
-    flex: 2;
-    width: 100%;
+    display: block;
+    margin: 10px auto;
+    width: fit-content;
 }

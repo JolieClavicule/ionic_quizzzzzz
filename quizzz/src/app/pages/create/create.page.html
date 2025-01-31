@@ -1,13 +1,18 @@
 <ion-content [fullscreen]="true">
   <div id="container">
-    <h1>Create New Quiz</h1>
+    <div id="header">
+      <ion-button color="primary" (click)="home()">
+        <ion-icon name="arrow-back"></ion-icon>
+        Back
+      </ion-button>
+      <h1>Create New Quiz</h1>
+    </div>
     <form [formGroup]="quizForm">
       <ion-item>
         <ion-label position="floating">Title of the quizz</ion-label>
         <ion-input formControlName="quizTitle" required></ion-input>
       </ion-item>
       
-      <!-- Questions Array -->
       <div formArrayName="questions">
         <ion-card *ngFor="let question of questions.controls; let i=index" [formGroupName]="i">
           <ion-card-header>
@@ -30,13 +35,11 @@
         </ion-card>
       </div>
 
-      <!-- Add Question Button -->
       <ion-button expand="block" (click)="addQuestion()">
         <ion-icon name="add"></ion-icon>
         Add Question
       </ion-button>
       
-      <!-- Save Quiz Button -->
       <ion-button expand="block" color="success" (click)="saveQuiz()" [disabled]="!quizForm.valid">
         Save Quiz
       </ion-button>

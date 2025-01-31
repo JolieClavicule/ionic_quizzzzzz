@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { Quiz } from 'src/app/Quizz/quizz.model';
 import { QuizzService } from 'src/app/Quizz/quizz.service';
@@ -16,7 +17,7 @@ export class CreatePage implements OnInit {
 
   quizForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private quizService: QuizzService) {}
+  constructor(private fb: FormBuilder, private quizService: QuizzService, private router: Router) {}
 
   ngOnInit() {
     this.initializeForm();
@@ -70,5 +71,9 @@ export class CreatePage implements OnInit {
         console.error('Error saving quiz:', error);
       }
     }
+  }
+
+  home() {
+    this.router.navigate(['/home']);
   }
 }

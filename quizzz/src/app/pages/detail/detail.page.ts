@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonicModule, ToastController } from '@ionic/angular';
 import { DownloadService } from 'src/app/Download/download.service';
 import { Quiz, QuizQuestion } from 'src/app/Quizz/quizz.model';
@@ -25,7 +25,8 @@ export class DetailPage implements OnInit {
     private quizService: QuizzService, 
     private route: ActivatedRoute,
     private downloadService: DownloadService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -100,5 +101,9 @@ export class DetailPage implements OnInit {
     } catch (error) {
       console.error('Error in downloadResults:', error);
     }
+}
+
+home() {
+  this.router.navigate(['/home']);
 }
 }
